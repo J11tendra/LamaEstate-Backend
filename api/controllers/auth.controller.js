@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import prisma from "../lib/prisma.js";
 
 export const register = async (req, res) => {
   // db operations
@@ -10,6 +11,17 @@ export const register = async (req, res) => {
   console.log(hashedPassword);
 
   // create a new user and save it
+
+  const newUser = await prisma.user.create({
+    data: {
+      username,
+      email,
+      password: hashedPassword,
+    },
+  });
+
+  console.log(newUser);
+  // const newUser = await
 };
 
 export const login = (req, res) => {
